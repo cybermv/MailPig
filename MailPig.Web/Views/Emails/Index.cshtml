@@ -1,0 +1,198 @@
+﻿@model IEnumerable<MailPig.BL.Models.EmailModel>
+@{
+    ViewBag.Title = "E-mailovi";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <h2 class="pull-left">Pregled e-mailova</h2>
+        <div class="pull-right" style="margin-top: 20px;">
+            <a class="btn btn-primary" href="@Url.Action("Create", "Emails")">
+                <i class="glyphicon glyphicon-plus"></i> Kreiraj novi e-mail
+            </a>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="row">
+
+    <div class="col-xs-3">
+        <table id="subjectsTable" class="table table-responsive table-hover table-striped">
+            <tr class="info">
+                <th>Subjekt</th>
+            </tr>
+            <tr><td>Učitavam ...</td></tr>
+        </table>
+    </div>
+
+    <div id="emailView" class="col-xs-9">
+
+        <h3 id="emailTitle"></h3>
+
+        <div class="well light-well">
+            <p id="emailBody"></p>
+        </div>
+
+        <div class="pull-right">
+            <a id="email-edit-link" href="#" class="btn btn-warning">
+                <i class="glyphicon glyphicon-edit"></i> Uredi e-mail
+            </a>
+            <button class="btn btn-success" data-toggle="modal" data-target="#email-send-modal">
+                <i class="glyphicon glyphicon-send"></i> Pošalji e-mail
+            </button>
+        </div>
+    </div>
+</div>
+
+<input id="email-edit-url" type="hidden" value="@Url.Action("Edit", "Emails")" />
+
+<div class="modal fade" id="email-send-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Slanje e-maila</h4>
+            </div>
+            <div class="modal-body">
+                <p>Odaberite grupu kojoj želite poslati e-mail</p>
+
+                <select class="form-control" id="groups-select" style="max-width: 100%;">
+                    <option>Učitavam ...</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="glyphicon glyphicon-chevron-left"></i> Odustani</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" onclick=" sendMail() "><i class="glyphicon glyphicon-send"></i> Pošalji</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="email-send-success" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Uspjeh</h4>
+            </div>
+            <div class="modal-body">
+                <p>E-mailovi uspješno poslani!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal"><i class="glyphicon glyphicon-check"></i> Super!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="email-send-error" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Greška</h4>
+            </div>
+            <div class="modal-body">
+                <p>Dogodila se greška prilikom slanja jednog ili više e-mailova!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Šteta :(</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        var emailsStorage = [];
+        var preselectedEmail = parseInt('@ViewBag.SelectedEmailId', 10);
+        var selectedEmail;
+
+        $(function () {
+            $('#emailView').hide();
+            $.ajax({
+                method: 'GET',
+                type: 'json',
+                url: '/api/emails',
+                success: fillEmailsTable
+            });
+
+            $.ajax({
+                method: 'GET',
+                type: 'json',
+                url: '@Url.Action("GroupsList","Groups")',
+                success: fillGroupsDropdown
+            });
+        });
+
+        function fillEmailsTable(data) {
+            $('#subjectsTable tr:last-child').remove();
+            emailsStorage = data;
+
+            var table = $('#subjectsTable');
+            $.each(data, function (idx, email) {
+                var row = $('<tr>').html($('<td>').text(email.Subject));
+                $(row).data('emailid', email.Id);
+                table.append(row);
+            });
+
+            $('tr').on('click', onRowClick);
+
+            if (preselectedEmail) {
+                loadIntoView(preselectedEmail);
+            }
+        }
+
+        function onRowClick() {
+            var emailId = $(this).data('emailid');
+            loadIntoView(emailId);
+        }
+
+        function loadIntoView(id) {
+            var email = findLocalEmail(id);
+            if (email) {
+                $('#emailView').show();
+                $('#emailTitle').text('Subjekt: ' + email.Subject);
+                $('#emailBody').html(email.Body);
+                $('#email-edit-link').attr('href', $('#email-edit-url').val() + "/" + id);
+                selectedEmail = email;
+            }
+        }
+
+        function findLocalEmail(id) {
+            var foundEmail;
+            $.each(emailsStorage, function (idx, email) {
+                if (email.Id === id) {
+                    foundEmail = email;
+                }
+            });
+            return foundEmail;
+        }
+
+        function fillGroupsDropdown(data) {
+            var dropdown = $('#groups-select');
+            dropdown.children().remove();
+            $.each(data, function (idx, item) {
+                var option = $('<option>').val(item.Key).text(item.Value);
+                dropdown.append(option);
+            });
+        }
+
+        function sendMail() {
+            var groupId = $('#groups-select').val();
+            var formattedUrl = '/Emails/SendMail/' + selectedEmail.Id + '/To/' + groupId;
+
+            $.ajax({
+                method: 'POST',
+                url: formattedUrl,
+                success: function () {
+                    $('#email-send-success').modal('show');
+                },
+                error: function () {
+                    $('#email-send-error').modal('show');
+                }
+            });
+        }
+    </script>
+}

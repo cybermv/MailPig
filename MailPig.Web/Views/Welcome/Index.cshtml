@@ -1,0 +1,36 @@
+﻿@model MailPig.BL.Models.WelcomePageStatisticsModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_WelcomeLayout.cshtml";
+}
+
+<h1>MailPig</h1>
+
+<div class="alert alert-info">
+    <h4>Dobrodošli u sustav MailPig, jednostavan i zasada besplatan sustav za upravljanje mailing listama</h4>
+
+    <p>Divite se našim brojkama!</p>
+    <div class="row">
+        <div class="col-sm-4">
+            <p class="text-center" style="font-size: 2em;">
+                <span style="font-size: 4em;">@Model.Groups</span>
+                <br />
+                Grupa!
+            </p>
+        </div>
+        <div class="col-sm-4">
+            <p class="text-center" style="font-size: 2em;">
+                <span style="font-size: 4em;">@Model.Subscribers</span>
+                <br />
+                Pretplatnika!
+            </p>
+        </div>
+        <div class="col-sm-4">
+            <p class="text-center" style="font-size: 2em;">
+                <span style="font-size: 4em;">@Model.SentMails</span>
+                <br />
+                Poslanih e-mailova!
+            </p>
+        </div>
+    </div>
+</div>
