@@ -1,6 +1,0 @@
-﻿MailPigDatabase:
-PASS: SuperS3cr3tPWD
-
-CONNSTR:
-
-Server=tcp:wzhev3fop2.database.windows.net,1433;Database=MailPigDatabase;User ID=mailpig@wzhev3fop2;Password=SuperS3cr3tPWD;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;

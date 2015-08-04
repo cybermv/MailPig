@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="MailPigContext-Web.config Connection String" description="MailPigContext Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\v11.0;Integrated Security=True" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="F:\\Projects\\MailPig\\MailPig\.Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MailPigContext']/@connectionString" />
-  </parameter>
-  <parameter name="MailPigContext_DatabasePublish-Web.config Connection String" description="MailPigContext_DatabasePublish Connection String used in web.config by the application to access the database." defaultValue="MailPigContext_DatabasePublish.ConnetionString" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="F:\\Projects\\MailPig\\MailPig\.Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MailPigContext_DatabasePublish']/@connectionString" />
-  </parameter>
-</parameters>

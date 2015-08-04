@@ -1,5 +1,0 @@
-F:\Projects\MailPig\MailPig.Model\bin\Release\MailPig.Model.dll
-F:\Projects\MailPig\MailPig.Model\bin\Release\MailPig.Model.pdb
-F:\Projects\MailPig\MailPig.Model\obj\Release\MailPig.Model.dll
-F:\Projects\MailPig\MailPig.Model\obj\Release\MailPig.Model.pdb
-F:\Projects\MailPig\MailPig.Model\obj\Release\MailPig.Model.csprojResolveAssemblyReference.cache
