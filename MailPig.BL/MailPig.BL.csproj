@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DEB68099-2343-4A15-A239-3B45C5B51DE6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MailPig.BL</RootNamespace>
+    <AssemblyName>MailPig.BL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\IService.cs" />
+    <Compile Include="Core\ServiceBase.cs" />
+    <Compile Include="Mailing\MailPigEmail.cs" />
+    <Compile Include="Mailing\Mailer.cs" />
+    <Compile Include="Mailing\MailerResult.cs" />
+    <Compile Include="Mailing\MailerResultStatusEnum.cs" />
+    <Compile Include="Models\EmailModels.cs" />
+    <Compile Include="Models\GroupModels.cs" />
+    <Compile Include="Models\SentEmailModels.cs" />
+    <Compile Include="Models\StatisticsModels.cs" />
+    <Compile Include="Models\SubscriberModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EmailsService.cs" />
+    <Compile Include="Services\GroupService.cs" />
+    <Compile Include="Services\StatisticsService.cs" />
+    <Compile Include="Services\SubscriberService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MailPig.DAL\MailPig.DAL.csproj">
+      <Project>{af92bc87-f5e7-471b-9c4b-184fbef0ed22}</Project>
+      <Name>MailPig.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MailPig.Model\MailPig.Model.csproj">
+      <Project>{C97069D3-038E-4606-BB35-77ABE0699D8C}</Project>
+      <Name>MailPig.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

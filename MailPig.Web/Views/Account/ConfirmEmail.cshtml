@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Potvrda računa";
+    Layout = "../Shared/_WelcomeLayout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+<div>
+    <p>
+        Potvrdio si svoj račun. @Html.ActionLink("Klikni ovdje za prijavu", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+    </p>
+</div>

@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="mailpig" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^F:\\Projects\\MailPig\\MailPig\.Web\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^F:\\Projects\\MailPig\\MailPig\.Web\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="MailPigContext-Web.config Connection String" description="" value="Server=tcp:wzhev3fop2.database.windows.net,1433;Database=MailPigDatabase;User ID=mailpig@wzhev3fop2;Password=SuperS3cr3tPWD;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;" tags="">
+    <parameterEntry kind="XmlFile" scope="F:\\Projects\\MailPig\\MailPig\.Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='MailPigContext']/@connectionString" />
+  </parameter>
+</parameters>

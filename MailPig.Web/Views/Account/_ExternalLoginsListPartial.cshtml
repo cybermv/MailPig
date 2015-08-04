@@ -1,0 +1,24 @@
+﻿@using MailPig.Web.Models
+@model ExternalLoginListViewModel
+@using Microsoft.Owin.Security
+
+@{
+    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+    if (loginProviders.Any())
+    {
+        <h4>Prijava koristeći vanjski račun</h4>
+        <hr />
+        using (Html.BeginForm(Model.Action, "Account", new { ReturnUrl = Model.ReturnUrl }))
+        {
+            @Html.AntiForgeryToken()
+            <div id="socialLoginList">
+                <p>
+                    @foreach (AuthenticationDescription p in loginProviders)
+                    {
+                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Prijavi se koristeći @p.Caption račun">@p.AuthenticationType</button>
+                    }
+                </p>
+            </div>
+        }
+    }
+}

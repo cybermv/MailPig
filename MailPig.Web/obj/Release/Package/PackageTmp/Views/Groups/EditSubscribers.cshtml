@@ -1,0 +1,111 @@
+﻿@model MailPig.BL.Models.GroupWithSubscribersModel
+
+@{
+    ViewBag.Title = "Uređivanje pretplatnika grupe";
+}
+
+<h2>Uređivanje pretplatnika grupe @Model.Name</h2>
+
+@using (Html.BeginForm("EditSubscribers", "Groups", FormMethod.Post, new { id = "editSubscribersForm" }))
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.Name)
+
+    <table class="table table-striped table-hover table-responsive">
+
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>E-mail</th>
+            <th>Akcije</th>
+        </tr>
+
+        @foreach (var subscriber in Model.Subscribers)
+        {
+            @Html.Partial("_SubsriberRowEntry", subscriber)
+        }
+
+        <tr class="dropdown-row">
+            <td colspan="3">
+                <select class="form-control" id="subscriberSelect" style="max-width: 100%;">
+                    <option>Učitavam ...</option>
+                </select>
+                <p class="error-message" style="color: red; font-weight: bold;">&nbsp;</p>
+            </td>
+            <td>
+                <a class="pointy" onclick="addNewSubscriber()" title="Dodaj pretplatnika">
+                    <i class="glyphicon glyphicon-lg glyphicon-plus"></i>
+                </a>
+            </td>
+        </tr>
+    </table>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <a class="btn btn-warning" href="@Url.Action("Index", "Groups")"><i class="glyphicon glyphicon-chevron-left"></i> Odustani</a>
+            <a class="btn btn-success" onclick="submitForm() "><i class="glyphicon glyphicon-check"></i> Spremi promjene</a>
+        </div>
+    </div>
+}
+
+@section scripts
+{
+    <script>
+
+        var currentIds = [];
+
+        $(function () {
+            $.ajax({
+                method: 'GET',
+                url: '@Url.Action("SubscribersListAjax","Subscribers")',
+                success: function (data) {
+                    var dropdown = $('#subscriberSelect');
+                    dropdown.children().remove();
+                    $.each(data, function (idx, item) {
+                        var option = $('<option>').val(item.Key).text(item.Value);
+                        dropdown.append(option);
+                    });
+                }
+            });
+
+            $.each($('.row-identifier'), function (idx, elem) {
+                currentIds.push(parseInt($(elem).val(), 10));
+            });
+        });
+
+        function removeSubscriber(tdElem) {
+            var row = $(tdElem).closest('tr');
+            var removedId = parseInt(row.find('.row-identifier').val(), 10);
+            currentIds.splice(currentIds.indexOf(removedId), 1);
+            row.remove();
+            return false;
+        }
+
+        function addNewSubscriber() {
+            var chosenId = parseInt($('#subscriberSelect').val(), 10);
+
+            if (currentIds.indexOf(chosenId) > -1) {
+                $('.error-message').text('Odabrani pretplatnik se već nalazi u trenutnoj grupi');
+                setTimeout(function () {
+                    $('.error-message').html('&nbsp;');
+                }, 3000);
+                return false;
+            }
+
+            $.ajax({
+                method: 'GET',
+                url: '@Url.Action("SubscriberRow","Subscribers")',
+                data: { id: chosenId },
+                success: function (data) {
+                    $(data).insertBefore('.dropdown-row');
+                    currentIds.push(chosenId);
+                }
+            });
+            return false;
+        }
+
+        function submitForm() {
+            $('#editSubscribersForm').submit();
+        }
+    </script>
+}

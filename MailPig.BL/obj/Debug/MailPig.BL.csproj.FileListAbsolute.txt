@@ -1,0 +1,15 @@
+F:\Projects\MailPig\MailPig.BL\bin\Debug\MailPig.BL.dll
+F:\Projects\MailPig\MailPig.BL\bin\Debug\MailPig.BL.pdb
+F:\Projects\MailPig\MailPig.BL\bin\Debug\EntityFramework.dll
+F:\Projects\MailPig\MailPig.BL\bin\Debug\MailPig.DAL.dll
+F:\Projects\MailPig\MailPig.BL\bin\Debug\MailPig.Model.dll
+F:\Projects\MailPig\MailPig.BL\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+F:\Projects\MailPig\MailPig.BL\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+F:\Projects\MailPig\MailPig.BL\bin\Debug\MailPig.DAL.pdb
+F:\Projects\MailPig\MailPig.BL\bin\Debug\MailPig.Model.pdb
+F:\Projects\MailPig\MailPig.BL\bin\Debug\EntityFramework.xml
+F:\Projects\MailPig\MailPig.BL\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+F:\Projects\MailPig\MailPig.BL\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+F:\Projects\MailPig\MailPig.BL\obj\Debug\MailPig.BL.csprojResolveAssemblyReference.cache
+F:\Projects\MailPig\MailPig.BL\obj\Debug\MailPig.BL.dll
+F:\Projects\MailPig\MailPig.BL\obj\Debug\MailPig.BL.pdb

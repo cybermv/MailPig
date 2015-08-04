@@ -1,0 +1,4 @@
+F:\Projects\MailPig\MailPig.Model\bin\Debug\MailPig.Model.dll
+F:\Projects\MailPig\MailPig.Model\bin\Debug\MailPig.Model.pdb
+F:\Projects\MailPig\MailPig.Model\obj\Debug\MailPig.Model.dll
+F:\Projects\MailPig\MailPig.Model\obj\Debug\MailPig.Model.pdb

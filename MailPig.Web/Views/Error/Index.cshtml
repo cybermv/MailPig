@@ -1,0 +1,36 @@
+﻿@using MailPig.Web.Core
+@model ErrorType
+@{
+    ViewBag.Title = "Greška - MailPig";
+    Layout = "~/Views/Shared/_SimpleLayout.cshtml";
+}
+
+@if (Model == ErrorType.NotFound)
+{
+    <div class="alert alert-warning">
+        <h1>Stranica nije pronađena</h1>
+        <p style="font-size: 1.7em;">Tražena stranica ne postoji ili je trenutno nedostupna. Pokušajte kasnije ili kontaktirajte administratora.</p>
+    </div>
+}
+else if (Model == ErrorType.Unauthorized)
+{
+    <div class="alert alert-danger">
+        <h1>Zabranjen pristup</h1>
+        <p style="font-size: 1.7em;">Nemate pristup traženoj stranici!</p>
+    </div>
+}
+else
+{
+    <div class="alert alert-danger">
+        <h1>Greška u aplikaciji</h1>
+        <p style="font-size: 1.7em;">Dogodila se neočekivana greška u aplikaciji; informacija o greški poslana je administratoru.</p>
+    </div>
+}
+
+@if (ViewBag.ErrorDetails != null)
+{
+    <div class="alert alert-info">
+        <h4>Dodatni podaci o grešci:</h4>
+        <p>@ViewBag.ErrorDetails</p>
+    </div>
+}
